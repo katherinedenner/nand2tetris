@@ -1,0 +1,97 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux4Way16.hdl
+
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel == 00
+ *       b if sel == 01
+ *       c if sel == 10
+ *       d if sel == 11
+ */
+
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+
+    PARTS:
+    Not(in=sel[0], out=notsel0);
+    Not(in=sel[1], out=notsel1);
+    And(a=notsel0, b=notsel1, out=sela);
+    And(a=a[0], b=sela, out=af0);
+    And(a=a[1], b=sela, out=af1);
+    And(a=a[2], b=sela, out=af2);
+    And(a=a[3], b=sela, out=af3);
+    And(a=a[4], b=sela, out=af4);
+    And(a=a[5], b=sela, out=af5);
+    And(a=a[6], b=sela, out=af6);
+    And(a=a[7], b=sela, out=af7);
+    And(a=a[8], b=sela, out=af8);
+    And(a=a[9], b=sela, out=af9);
+    And(a=a[10], b=sela, out=af10);
+    And(a=a[11], b=sela, out=af11);
+    And(a=a[12], b=sela, out=af12);
+    And(a=a[13], b=sela, out=af13);
+    And(a=a[14], b=sela, out=af14);
+    And(a=a[15], b=sela, out=af15);
+
+    And(a=sel[0], b=notsel1, out=selb);
+    And(a=b[0], b=selb, out=bf0);
+    And(a=b[1], b=selb, out=bf1);
+    And(a=b[2], b=selb, out=bf2);
+    And(a=b[3], b=selb, out=bf3);
+    And(a=b[4], b=selb, out=bf4);
+    And(a=b[5], b=selb, out=bf5);
+    And(a=b[6], b=selb, out=bf6);
+    And(a=b[7], b=selb, out=bf7);
+    And(a=b[8], b=selb, out=bf8);
+    And(a=b[9], b=selb, out=bf9);
+    And(a=b[10], b=selb, out=bf10);
+    And(a=b[11], b=selb, out=bf11);
+    And(a=b[12], b=selb, out=bf12);
+    And(a=b[13], b=selb, out=bf13);
+    And(a=b[14], b=selb, out=bf14);
+    And(a=b[15], b=selb, out=bf15);
+
+    And(a=notsel0, b=sel1, out=selc);
+    And(a=c[0], b=selc, out=cf0);
+    And(a=c[1], b=selc, out=cf1);
+    And(a=c[2], b=selc, out=cf2);
+    And(a=c[3], b=selc, out=cf3);
+    And(a=c[4], b=selc, out=cf4);
+    And(a=c[5], b=selc, out=cf5);
+    And(a=c[6], b=selc, out=cf6);
+    And(a=c[7], b=selc, out=cf7);
+    And(a=c[8], b=selc, out=cf8);
+    And(a=c[9], b=selc, out=cf9);
+    And(a=c[10], b=selc, out=cf10);
+    And(a=c[11], b=selc, out=cf11);
+    And(a=c[12], b=selc, out=cf12);
+    And(a=c[13], b=selc, out=cf13);
+    And(a=c[14], b=selc, out=cf14);
+    And(a=c[15], b=selc, out=cf15);
+
+    And(a=sel0, b=sel1, out=seld);
+    And(a=d[0], b=seld, out=df0);
+    And(a=d[1], b=seld, out=df1);
+    And(a=d[2], b=seld, out=df2);
+    And(a=d[3], b=seld, out=df3);
+    And(a=d[4], b=seld, out=df4);
+    And(a=d[5], b=seld, out=df5);
+    And(a=d[6], b=seld, out=df6);
+    And(a=d[7], b=seld, out=df7);
+    And(a=d[8], b=seld, out=df8);
+    And(a=d[9], b=seld, out=df9);
+    And(a=d[10], b=seld, out=df10);
+    And(a=d[11], b=seld, out=df11);
+    And(a=d[12], b=seld, out=df12);
+    And(a=d[13], b=seld, out=df13);
+    And(a=d[14], b=seld, out=df14);
+    And(a=d[15], b=seld, out=df15);
+
+    Or(a=[af0 af1 af2 af3 af4 af5 af6 af7 af8 af9 af10 af11 af12 af13 af14 af15], b=[bf0 bf1 bf2 bf3 bf4 bf5 bf6 bf7 bf8 bf9 bf10 bf11 bf12 bf13 bf14 bf15], out=or0[0..15]);
+    Or(a=or0[0..15], b=cf[0..15], out=or1[0..15]);
+    Or(a=or1[0..15], b=df[0..15], out=out[0..15]);
+
+}
